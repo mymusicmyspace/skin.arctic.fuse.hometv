@@ -19,7 +19,8 @@
             <ondown>9500</ondown><onback>300</onback>
         </control>
         <control type="button" id="300">
-            <top>-1000</top><height>10</height><texturefocus /><texturenofocus />
+            <left>140</left><top>145</top><width>166</width><height>4</height>
+            <texturefocus colordiffuse="$VAR[ColorHighlight]">common/white.png</texturefocus><texturenofocus />
             <onleft>$INFO[Container(399).ListItem(-1).Property(action)]</onleft>
             <onright>$INFO[Container(399).ListItem(1).Property(action)]</onright>
             <ondown>9500</ondown><onclick>SetFocus(9500)</onclick>
@@ -44,7 +45,7 @@
         <control type="list" id="9500">
             <left>60</left><top>224</top><width>930</width><height>792</height>
             <orientation>vertical</orientation><scrolltime>180</scrolltime><preloaditems>2</preloaditems>
-            <onleft>300</onleft><onright>300</onright><onback>300</onback>
+            <onleft>SetFocus(300)</onleft><onright>SetFocus(300)</onright><onback>300</onback>
             <onup>9500</onup><ondown>9500</ondown>
             <onclick>PlayMedia($INFO[Container(9500).ListItem.FileNameAndPath])</onclick>
             <onfocus>SetProperty(HomeSwitcher.IsVisible,True,Home)</onfocus>
@@ -69,6 +70,8 @@
                 </control>
             </itemlayout>
             <focusedlayout width="930" height="88">
+                <control type="group">
+                    <visible>Control.HasFocus(9500)</visible>
                 <control type="image">
                     <left>0</left><top>0</top><width>930</width><height>88</height>
                     <texture border="40" colordiffuse="$VAR[ColorHighlight]">common/menu.png</texture>
@@ -89,6 +92,27 @@
                 <control type="label">
                     <left>174</left><top>45</top><width>720</width><height>32</height>
                     <font>font_mini</font><include>Color_SelectedText</include><label>$INFO[ListItem.Title]</label>
+                </control>
+                </control>
+                <control type="group">
+                    <visible>!Control.HasFocus(9500)</visible>
+                <control type="label">
+                    <left>16</left><top>12</top><width>54</width><height>64</height>
+                    <font>font_mini</font><textcolor>main_fg_70</textcolor><align>center</align>
+                    <label>$INFO[ListItem.ChannelNumberLabel]</label>
+                </control>
+                <control type="image">
+                    <left>86</left><top>12</top><width>64</width><height>64</height>
+                    <aspectratio>keep</aspectratio><texture background="true">$INFO[ListItem.Icon]</texture>
+                </control>
+                <control type="label">
+                    <left>174</left><top>6</top><width>720</width><height>40</height>
+                    <font>font_main</font><textcolor>main_fg_100</textcolor><label>$INFO[ListItem.Label]</label>
+                </control>
+                <control type="label">
+                    <left>174</left><top>45</top><width>720</width><height>32</height>
+                    <font>font_mini</font><textcolor>main_fg_70</textcolor><label>$INFO[ListItem.Title]</label>
+                </control>
                 </control>
             </focusedlayout>
         </control>
@@ -144,7 +168,14 @@
         <control type="label">
             <left>80</left><top>1026</top><width>1760</width><height>40</height>
             <font>font_mini</font><textcolor>main_fg_50</textcolor>
-            <label>OK: guarda il canale     Indietro: sezioni</label>
+            <visible>!Control.HasFocus(300)</visible>
+            <label>OK: guarda il canale     Sinistra: menu in alto</label>
+        </control>
+        <control type="label">
+            <left>80</left><top>1026</top><width>1760</width><height>40</height>
+            <font>font_mini</font><textcolor>main_fg_100</textcolor>
+            <visible>Control.HasFocus(300)</visible>
+            <label>Menu in alto: Sinistra/Destra cambia sezione     Giu: torna ai canali</label>
         </control>
     </controls>
 </window>
