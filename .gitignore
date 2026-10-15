@@ -8,3 +8,12 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 .DS_Store
+
+# Home TV local output and temporary worktrees
+.hometv/worktrees/
+dist/
+__pycache__/
+*.pyc
+.env
+backups/
+logs/

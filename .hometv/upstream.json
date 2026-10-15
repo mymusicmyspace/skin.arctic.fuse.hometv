@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "repository": "jurialmunkey/skin.arctic.fuse.3",
+  "branch": "omega",
+  "tag": "v3.3.12",
+  "version": "3.3.12",
+  "commit": "660a05c35546718e90a88be7798bb0a92632abce",
+  "gui_api": "5.17.0"
+}

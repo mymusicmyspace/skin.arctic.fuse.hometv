@@ -1,0 +1,42 @@
+name: Propose Arctic updates
+on:
+  schedule:
+    - cron: '13 8 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+concurrency:
+  group: hometv-upstream-sync
+  cancel-in-progress: false
+jobs:
+  propose:
+    if: github.repository_owner == 'mymusicmyspace' && github.ref == 'refs/heads/home-tv'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: home-tv
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Configure update author and branches
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin 'refs/heads/upstream-stable:refs/heads/upstream-stable'
+          git fetch origin 'refs/heads/updates/*:refs/remotes/origin/updates/*'
+      - name: Test update tooling
+        run: python -m unittest discover -s .hometv/tests -v
+      - name: Prepare a draft update
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: python .hometv/github_sync.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hometv-update-report
+          path: dist/
+          if-no-files-found: warn

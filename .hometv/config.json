@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "addon_id": "skin.arctic.fuse.hometv",
+  "version": "1.0.0",
+  "profile_schema": 1,
+  "kodi_major": 21,
+  "github_repository": "mymusicmyspace/skin.arctic.fuse.hometv",
+  "upstream_url": "https://github.com/jurialmunkey/skin.arctic.fuse.3.git",
+  "upstream_manifest": "https://raw.githubusercontent.com/jurialmunkey/repository.jurialmunkey/master/omega/zips/skin.arctic.fuse.3/addon.xml"
+}

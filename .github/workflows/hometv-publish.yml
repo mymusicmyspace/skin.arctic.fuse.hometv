@@ -1,0 +1,47 @@
+name: Publish approved Home TV
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Exact approved Home TV version (for example 1.0.0)'
+        type: string
+        required: true
+permissions:
+  contents: write
+concurrency:
+  group: hometv-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository_owner == 'mymusicmyspace' && github.ref == 'refs/heads/home-tv'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Check requested version
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
+        run: |
+          python -c "import json,os; assert json.load(open('.hometv/config.json'))['version'] == os.environ['REQUESTED_VERSION'], 'Version mismatch'"
+      - name: Test merge and release protection
+        run: python -m unittest discover -s .hometv/tests -v
+      - name: Configure publisher
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if git ls-remote --exit-code --heads origin kodi-repo; then
+            git fetch origin kodi-repo:kodi-repo
+          fi
+      - name: Build and verify exact device-approved package
+        run: python .hometv/maintain.py publish
+      - name: Publish Kodi repository
+        run: git push origin kodi-repo:kodi-repo
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hometv-approved-release
+          path: dist/*
+          if-no-files-found: error
