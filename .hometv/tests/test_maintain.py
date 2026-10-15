@@ -138,6 +138,9 @@ class RepositoryTest(unittest.TestCase):
     def test_publish_is_idempotent_and_refuses_changed_bytes_at_same_version(self):
         package, manifest = m.build(root=self.root)
         self.approval(manifest)
+        feed = m.repository_files(package, manifest, root=self.root)
+        self.assertEqual(feed[f'omega/{m.ADDON}/icon.png'], b'Fixture')
+        self.assertEqual(feed[f'omega/{m.ADDON}/fanart.jpg'], b'Fixture')
         commit = m.publish(package, manifest, root=self.root)
         self.assertEqual(m.publish(package, manifest, root=self.root), commit)
         index = ET.fromstring(m.git('show', 'kodi-repo:omega/addons.xml', cwd=self.root).stdout)

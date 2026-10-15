@@ -291,6 +291,8 @@ def repository_files(package, manifest, root=ROOT):
     addons = ET.Element('addons')
     with zipfile.ZipFile(package) as archive:
         addons.append(ET.fromstring(archive.read(ADDON + '/addon.xml')))
+        artwork = {f'omega/{ADDON}/{name}': archive.read(ADDON + '/' + name)
+                   for name in ('icon.png', 'fanart.jpg')}
     addons.append(repository)
     index = ET.tostring(addons, encoding='utf-8', xml_declaration=True)
     with tempfile.SpooledTemporaryFile() as stream:
@@ -302,6 +304,7 @@ def repository_files(package, manifest, root=ROOT):
         stream.seek(0)
         repo_zip = stream.read()
     return {
+        **artwork,
         'omega/addons.xml': index,
         'omega/addons.xml.md5': hashlib.md5(index).hexdigest().encode(),
         f'omega/{ADDON}/{Path(package).name}': Path(package).read_bytes(),
