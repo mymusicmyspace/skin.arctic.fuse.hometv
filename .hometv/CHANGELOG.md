@@ -1,5 +1,10 @@
 # Home TV changes
 
+## 1.0.3
+
+Remove the underline beneath Live TV when the top menu has focus.
+Left/Down navigation, channel highlighting and remote hints are preserved.
+
 ## 1.0.2
 
 One Left from the channel list explicitly focuses the top menu. The active menu

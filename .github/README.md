@@ -4,12 +4,12 @@ Variante di [Arctic Fuse 3 di jurialmunkey](https://github.com/jurialmunkey/skin
 con canali TV in verticale nella Home, programma e orari sulla destra, e menu
 originale della skin per Film, Serie TV e le altre sezioni.
 
-**Base attuale:** Arctic Fuse 3.3.12. **Home TV:** 1.0.2.
+**Base attuale:** Arctic Fuse 3.3.12. **Home TV:** 1.0.3.
 Il pacchetto iniziale corrisponde esattamente a quello provato sulla Fire TV.
 Licenza e attribuzione originali: CC BY-NC-SA 4.0.
 
 Telecomando: dalla lista canali premere **Sinistra una volta** per il menu in
-alto, riconoscibile dalla sottolineatura. **Giù** torna alla lista conservando
+alto. **Giù** torna alla lista conservando
 il canale selezionato. Dal video: **Indietro → Sinistra**. Nel menu,
 Sinistra/Destra cambia sezione.
 

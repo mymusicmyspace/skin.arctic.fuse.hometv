@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "addon_id": "skin.arctic.fuse.hometv",
+  "version": "1.0.3",
+  "package_sha256": "805b137826a8af0cf4212ec71277c0176134056738474dec97ea82c88fb1324b",
+  "runtime_verified": [
+    {
+      "runtime": {
+        "kodi": {
+          "major": 21,
+          "minor": 3,
+          "revision": "20251031-a3a448d26b",
+          "tag": "stable"
+        },
+        "addons": {
+          "script.skinvariables": {
+            "addonid": "script.skinvariables",
+            "enabled": true,
+            "type": "xbmc.python.script",
+            "version": "2.2.9"
+          },
+          "script.texturemaker": {
+            "addonid": "script.texturemaker",
+            "enabled": true,
+            "type": "xbmc.python.script",
+            "version": "0.2.11"
+          },
+          "plugin.video.themoviedb.helper": {
+            "addonid": "plugin.video.themoviedb.helper",
+            "enabled": true,
+            "type": "xbmc.python.pluginsource",
+            "version": "6.17.9"
+          }
+        }
+      },
+      "evidence": "verification/hometv-no-underline-20261015/",
+      "checks": [
+        "Underline absent in settled screenshot; physical Left/Down focus verified",
+        "First OK and Back, native hubs and Estuary/Home TV round trip",
+        "Settings and node hashes preserved; cold startup observed after deployment"
+      ]
+    }
+  ],
+  "checks": {
+    "cold_boot": true,
+    "first_ok": true,
+    "back_to_list": true,
+    "native_hubs": true,
+    "skin_switch": true,
+    "profile_preservation": true
+  },
+  "evidence_date": "2026-10-15",
+  "evidence_scope": "Actual Fire TV verification; only Home texture and addon version changed."
+}
