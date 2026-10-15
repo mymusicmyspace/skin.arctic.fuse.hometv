@@ -1,30 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <onload>RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/skinvariables-splash.json,use_rules=True)</onload>
+    <!-- A real Home container, not a redirect to CGUIWindowPVRChannels. -->
+    <defaultcontrol always="true">9500</defaultcontrol>
+    <menucontrol>300</menucontrol>
     <include>Action_BuildViews</include>
-    <onload>Skin.SetString(TMDbHelper.Corner.Radius,20)</onload>
-    <onload>Skin.SetString(TMDbHelper.UseLocalWindowIDs,10000|11101|11102|11103|11104|11105|11106|11107|11108|11109)</onload>
-    <include>Action_ButtonMenu_Onload</include>
     <include>Action_BuildShortcuts_OnLoad</include>
-    <include>skinvariables-homewidgets-standard-onunload</include>
-
-    <include content="Hub_Onload">
-        <param name="window_id">Home</param>
-    </include>
-
-    <onload condition="!Skin.HasSetting(Home.FirstRun)">Skin.SetBool(Hub.Home.DisableSubmenu)</onload>
-    <onload condition="!Skin.HasSetting(Home.FirstRun)">Skin.SetString(Shortcuts.RebuildDateTime,FirstRun)</onload>
-    <onload condition="!Skin.HasSetting(Home.FirstRun)">Skin.SetBool(Home.FirstRun)</onload>
-    <onload condition="!Skin.HasSetting(Home.FirstRun)">AlarmClock(reloadskin,ReloadSkin(),00:00,silent)</onload>
-
-    <onload>$VAR[Action_RatingsMonitor]</onload>
-
-    <onload condition="Skin.HasSetting(Home.FirstRun) + String.IsEmpty(Window(1198).Property(FirstStart))">$VAR[Action_FirstStart_HomeFocus]</onload>
-    <onload condition="Skin.HasSetting(Home.FirstRun) + String.IsEmpty(Window(1198).Property(FirstStart))">SetProperty(FirstStart,True,1198)</onload>
-
+    <include>Action_ButtonMenu_Onload</include>
+    <onload>SetProperty(HomeSwitcher.IsVisible,True,Home)</onload>
+    <onload condition="!Integer.IsGreater(Container(9500).NumItems,0)">SetFocus(9499)</onload>
+    <onload>Skin.SetString(TMDbHelper.Corner.Radius,20)</onload>
     <controls>
-        <include content="Hub_Window">
-            <param name="window">home</param>
-        </include>
+        <include>Background</include>
+        <include>Home_ControlList</include>
+        <control type="button" id="9499">
+            <top>-2000</top><height>10</height><texturefocus /><texturenofocus />
+            <visible>!Integer.IsGreater(Container(9500).NumItems,0)</visible>
+            <onunfocus condition="Integer.IsGreater(Container(9500).NumItems,0) + !System.HasVisibleModalDialog">SetFocus(9500)</onunfocus>
+            <ondown>9500</ondown><onback>300</onback>
+        </control>
+        <control type="button" id="300">
+            <top>-1000</top><height>10</height><texturefocus /><texturenofocus />
+            <onleft>$INFO[Container(399).ListItem(-1).Property(action)]</onleft>
+            <onright>$INFO[Container(399).ListItem(1).Property(action)]</onright>
+            <ondown>9500</ondown><onclick>SetFocus(9500)</onclick>
+            <onup>ActivateWindow(1170)</onup><onback>ActivateWindow(shutdownmenu)</onback>
+            <onfocus>SetProperty(HomeSwitcher.IsVisible,True,Home)</onfocus>
+        </control>
+        <!-- NATIVE_MENU -->
+        <control type="image">
+            <left>80</left><top>154</top><width>1760</width><height>1</height>
+            <texture colordiffuse="main_fg_12">common/white.png</texture>
+        </control>
+        <control type="label">
+            <left>80</left><top>167</top><width>600</width><height>42</height>
+            <font>font_mini_bold</font><textcolor>main_fg_70</textcolor>
+            <label>Tutti i canali</label>
+        </control>
+        <control type="label">
+            <left>720</left><top>167</top><width>230</width><height>42</height>
+            <font>font_mini</font><textcolor>main_fg_70</textcolor><align>right</align>
+            <label>$INFO[Container(9500).CurrentItem] / $INFO[Container(9500).NumItems]</label>
+        </control>
+        <control type="list" id="9500">
+            <left>60</left><top>224</top><width>930</width><height>792</height>
+            <orientation>vertical</orientation><scrolltime>180</scrolltime><preloaditems>2</preloaditems>
+            <onleft>300</onleft><onright>300</onright><onback>300</onback>
+            <onup>9500</onup><ondown>9500</ondown>
+            <onclick>PlayMedia($INFO[Container(9500).ListItem.FileNameAndPath])</onclick>
+            <onfocus>SetProperty(HomeSwitcher.IsVisible,True,Home)</onfocus>
+            <content sortby="channelnumber" sortorder="ascending">pvr://channels/tv/*</content>
+            <itemlayout width="930" height="88">
+                <control type="label">
+                    <left>16</left><top>12</top><width>54</width><height>64</height>
+                    <font>font_mini</font><textcolor>main_fg_70</textcolor><align>center</align>
+                    <label>$INFO[ListItem.ChannelNumberLabel]</label>
+                </control>
+                <control type="image">
+                    <left>86</left><top>12</top><width>64</width><height>64</height>
+                    <aspectratio>keep</aspectratio><texture background="true">$INFO[ListItem.Icon]</texture>
+                </control>
+                <control type="label">
+                    <left>174</left><top>6</top><width>720</width><height>40</height>
+                    <font>font_main</font><textcolor>main_fg_100</textcolor><label>$INFO[ListItem.Label]</label>
+                </control>
+                <control type="label">
+                    <left>174</left><top>45</top><width>720</width><height>32</height>
+                    <font>font_mini</font><textcolor>main_fg_70</textcolor><label>$INFO[ListItem.Title]</label>
+                </control>
+            </itemlayout>
+            <focusedlayout width="930" height="88">
+                <control type="image">
+                    <left>0</left><top>0</top><width>930</width><height>88</height>
+                    <texture border="40" colordiffuse="$VAR[ColorHighlight]">common/menu.png</texture>
+                </control>
+                <control type="label">
+                    <left>16</left><top>12</top><width>54</width><height>64</height>
+                    <font>font_mini</font><textcolor>$VAR[ColorSelected]</textcolor><align>center</align>
+                    <label>$INFO[ListItem.ChannelNumberLabel]</label>
+                </control>
+                <control type="image">
+                    <left>86</left><top>12</top><width>64</width><height>64</height>
+                    <aspectratio>keep</aspectratio><texture background="true">$INFO[ListItem.Icon]</texture>
+                </control>
+                <control type="label">
+                    <left>174</left><top>6</top><width>720</width><height>40</height>
+                    <font>font_main_bold</font><textcolor>$VAR[ColorSelected]</textcolor><label>$INFO[ListItem.Label]</label>
+                </control>
+                <control type="label">
+                    <left>174</left><top>45</top><width>720</width><height>32</height>
+                    <font>font_mini</font><textcolor>$VAR[ColorSelected]</textcolor><label>$INFO[ListItem.Title]</label>
+                </control>
+            </focusedlayout>
+        </control>
+        <control type="image">
+            <left>1014</left><top>224</top><width>1</width><height>792</height>
+            <texture colordiffuse="main_fg_12">common/white.png</texture>
+        </control>
+        <control type="group">
+            <left>1060</left><top>224</top><width>780</width><height>792</height>
+            <visible>Integer.IsGreater(Container(9500).NumItems,0)</visible>
+            <control type="label">
+                <left>0</left><top>0</top><width>630</width><height>64</height>
+                <font>font_midi_bold</font><textcolor>main_fg_100</textcolor>
+                <label>$INFO[Container(9500).ListItem.Label]</label>
+            </control>
+            <control type="image">
+                <left>664</left><top>0</top><width>112</width><height>112</height>
+                <aspectratio>keep</aspectratio><texture background="true">$INFO[Container(9500).ListItem.Icon]</texture>
+            </control>
+            <control type="label">
+                <left>0</left><top>75</top><width>630</width><height>40</height>
+                <font>font_mini</font><textcolor>main_fg_70</textcolor>
+                <label>$INFO[Container(9500).ListItem.StartTime]$INFO[Container(9500).ListItem.EndTime, - ,]</label>
+            </control>
+            <control type="progress">
+                <left>0</left><top>142</top><width>780</width><height>5</height>
+                <info>Container(9500).ListItem.Progress</info>
+                <texturebg colordiffuse="main_fg_12">common/white.png</texturebg>
+                <lefttexture /><midtexture colordiffuse="$VAR[ColorHighlight]">common/white.png</midtexture><righttexture />
+            </control>
+            <control type="textbox">
+                <left>0</left><top>174</top><width>780</width><height>145</height>
+                <font>font_midi_bold</font><textcolor>main_fg_100</textcolor>
+                <label>$INFO[Container(9500).ListItem.Title]</label>
+            </control>
+            <control type="textbox">
+                <left>0</left><top>342</top><width>780</width><height>320</height>
+                <font>font_main_plot</font><textcolor>main_fg_70</textcolor>
+                <label>$INFO[Container(9500).ListItem.Plot]</label>
+            </control>
+            <control type="label">
+                <left>0</left><top>704</top><width>780</width><height>80</height>
+                <font>font_mini</font><textcolor>main_fg_70</textcolor><wrapmultiline>true</wrapmultiline>
+                <label>$INFO[Container(9500).ListItem.NextTitle,A seguire: ,]</label>
+            </control>
+        </control>
+        <control type="label">
+            <left>80</left><top>400</top><width>820</width><height>100</height>
+            <font>font_main</font><textcolor>main_fg_70</textcolor><wrapmultiline>true</wrapmultiline>
+            <visible>!Integer.IsGreater(Container(9500).NumItems,0)</visible>
+            <label>In attesa dei canali TV…</label>
+        </control>
+        <control type="label">
+            <left>80</left><top>1026</top><width>1760</width><height>40</height>
+            <font>font_mini</font><textcolor>main_fg_50</textcolor>
+            <label>OK: guarda il canale     Indietro: sezioni</label>
+        </control>
     </controls>
 </window>
