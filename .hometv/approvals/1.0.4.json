@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "addon_id": "skin.arctic.fuse.hometv",
+  "version": "1.0.4",
+  "package_sha256": "9a73cb36a58d9491f76cb12abe6b8e1bcfe99590171dea7ae1bc7452d65bd9d1",
+  "runtime_verified": [
+    {
+      "runtime": {
+        "kodi": {
+          "major": 21,
+          "minor": 3,
+          "revision": "20251031-a3a448d26b",
+          "tag": "stable"
+        },
+        "addons": {
+          "script.skinvariables": {
+            "addonid": "script.skinvariables",
+            "enabled": true,
+            "type": "xbmc.python.script",
+            "version": "2.2.9"
+          },
+          "script.texturemaker": {
+            "addonid": "script.texturemaker",
+            "enabled": true,
+            "type": "xbmc.python.script",
+            "version": "0.2.11"
+          },
+          "plugin.video.themoviedb.helper": {
+            "addonid": "plugin.video.themoviedb.helper",
+            "enabled": true,
+            "type": "xbmc.python.pluginsource",
+            "version": "6.17.9"
+          }
+        }
+      },
+      "evidence": "verification/hometv-tab-navigation-20261015/",
+      "checks": [
+        "Physical Film to Live TV to Film with one press each and menu focus300 preserved",
+        "All five tabs and circular navigation in both directions; no search icon in settled screenshot",
+        "Cold start on9500; Down, first OK after PVR loading, Back and skin round trip",
+        "Only requested native settings DisableSearch and Loopback changed; other settings and nodes preserved"
+      ]
+    }
+  ],
+  "checks": {
+    "cold_boot": true,
+    "native_hubs": true,
+    "first_ok": true,
+    "back_to_list": true,
+    "skin_switch": true,
+    "profile_preservation": true
+  },
+  "evidence_date": "2026-10-15",
+  "evidence_scope": "Actual Fire TV physical DPAD verification; no future compatibility claim."
+}

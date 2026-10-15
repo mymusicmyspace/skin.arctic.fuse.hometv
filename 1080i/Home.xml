@@ -8,6 +8,9 @@
     <include>Action_ButtonMenu_Onload</include>
     <onload>SetProperty(HomeSwitcher.IsVisible,True,Home)</onload>
     <onload condition="!Integer.IsGreater(Container(9500).NumItems,0)">SetFocus(9499)</onload>
+    <!-- Returning from another top tab must not drop focus into channels. -->
+    <onload condition="!String.IsEmpty(Window(Home).Property(HomeTV.MenuNavigation))">SetFocus(300)</onload>
+    <onload>ClearProperty(HomeTV.MenuNavigation,Home)</onload>
     <onload>Skin.SetString(TMDbHelper.Corner.Radius,20)</onload>
     <controls>
         <include>Background</include>
@@ -21,7 +24,9 @@
         <control type="button" id="300">
             <left>140</left><top>145</top><width>166</width><height>4</height>
             <texturefocus /><texturenofocus />
+            <onleft>SetProperty(HomeTV.MenuNavigation,True,Home)</onleft>
             <onleft>$INFO[Container(399).ListItem(-1).Property(action)]</onleft>
+            <onright>SetProperty(HomeTV.MenuNavigation,True,Home)</onright>
             <onright>$INFO[Container(399).ListItem(1).Property(action)]</onright>
             <ondown>9500</ondown><onclick>SetFocus(9500)</onclick>
             <onup>ActivateWindow(1170)</onup><onback>ActivateWindow(shutdownmenu)</onback>

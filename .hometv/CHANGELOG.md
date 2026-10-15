@@ -1,5 +1,11 @@
 # Home TV changes
 
+## 1.0.4
+
+Keep focus on the top menu when returning from Film or another tab to Live TV,
+so the next Left/Right switches tabs immediately. Cold startup still opens
+the channel list. Search visibility remains the native skin preference.
+
 ## 1.0.3
 
 Remove the underline beneath Live TV when the top menu has focus.
