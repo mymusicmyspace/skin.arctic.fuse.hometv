@@ -32,8 +32,10 @@ corresponding author tag, verifies version, GUI API and commit ancestry, and
 performs a normal Git merge in a temporary worktree.
 
 On a clean merge it increments the Home TV package version, builds a candidate
-and opens a draft PR. On conflicts it aborts the merge and opens a report-only
-draft PR listing the affected files. Existing update branches are never reset
+and attempts to open a draft PR. If GitHub blocks token-created PRs, it keeps
+the update branch and provides a comparison link in the run summary instead.
+On conflicts it aborts the merge and prepares a report-only proposal listing
+the affected files. Existing update branches are never reset
 or force-pushed. A failed integration cannot replace the TV's installed skin.
 New development commits with the same published version are left alone.
 
@@ -72,8 +74,9 @@ upstream changes to settings formats may still require a migration.
 
 ## GitHub setup
 
-Make `home-tv` the default branch. Enable Actions for the fork and allow the
-GitHub Actions token to create pull requests in this repository. Workflow job
+Make `home-tv` the default branch and enable Actions for the fork. The existing
+restriction on token-created pull requests can remain in place: update branches
+and comparison links work without changing that setting. Workflow job
 permissions are read-only for checks and write only for update proposals or
 manual publication. No personal access token or device credential is stored.
 Run the check workflow and a manual upstream check after first setup. GitHub
