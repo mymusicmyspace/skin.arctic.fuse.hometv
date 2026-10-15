@@ -116,7 +116,7 @@ def package_contents(root=ROOT):
             ET.fromstring(data)
         if name.endswith('.json'):
             json.loads(data)
-        if Path(name).suffix.lower() in TEXT_EXTENSIONS and UPSTREAM.encode() in data:
+        if name.endswith(('.xml', '.json')) and UPSTREAM.encode() in data:
             raise RuntimeError('Unmigrated namespace: ' + name)
     return files, config, accepted
 
@@ -142,6 +142,7 @@ def build(output=None, release=False, root=ROOT):
     with zipfile.ZipFile(package, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
         for name, data in sorted(files.items()):
             info = zipfile.ZipInfo(ADDON + '/' + name, date_time=(2026, 1, 1, 0, 0, 0))
+            info.create_system = 0
             info.compress_type = zipfile.ZIP_DEFLATED
             archive.writestr(info, data)
     digest = hashlib.sha256(package.read_bytes()).hexdigest()
@@ -295,6 +296,7 @@ def repository_files(package, manifest, root=ROOT):
     with tempfile.SpooledTemporaryFile() as stream:
         with zipfile.ZipFile(stream, 'w', compression=zipfile.ZIP_DEFLATED) as archive:
             item = zipfile.ZipInfo(repo_id + '/addon.xml', date_time=(2026, 1, 1, 0, 0, 0))
+            item.create_system = 0
             item.compress_type = zipfile.ZIP_DEFLATED
             archive.writestr(item, repo_xml)
         stream.seek(0)
