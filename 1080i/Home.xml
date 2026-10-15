@@ -75,7 +75,7 @@
                 </control>
                 <control type="label">
                     <left>16</left><top>12</top><width>54</width><height>64</height>
-                    <font>font_mini</font><textcolor>$VAR[ColorSelected]</textcolor><align>center</align>
+                    <font>font_mini</font><include>Color_SelectedText</include><align>center</align>
                     <label>$INFO[ListItem.ChannelNumberLabel]</label>
                 </control>
                 <control type="image">
@@ -84,11 +84,11 @@
                 </control>
                 <control type="label">
                     <left>174</left><top>6</top><width>720</width><height>40</height>
-                    <font>font_main_bold</font><textcolor>$VAR[ColorSelected]</textcolor><label>$INFO[ListItem.Label]</label>
+                    <font>font_main_bold</font><include>Color_SelectedText</include><label>$INFO[ListItem.Label]</label>
                 </control>
                 <control type="label">
                     <left>174</left><top>45</top><width>720</width><height>32</height>
-                    <font>font_mini</font><textcolor>$VAR[ColorSelected]</textcolor><label>$INFO[ListItem.Title]</label>
+                    <font>font_mini</font><include>Color_SelectedText</include><label>$INFO[ListItem.Title]</label>
                 </control>
             </focusedlayout>
         </control>
