@@ -1,5 +1,11 @@
 # Home TV changes
 
+## 1.0.5
+
+Use the author's shared menu positioning on Live TV as on the native hubs.
+This removes the horizontal jump after hiding Search and follows the same
+header/search preferences across tabs. Remote navigation is unchanged.
+
 ## 1.0.4
 
 Keep focus on the top menu when returning from Film or another tab to Live TV,

@@ -101,13 +101,8 @@ def package_contents(root=ROOT):
     if menu is None or template.count('<!-- NATIVE_MENU -->') != 1:
         raise RuntimeError('Native menu structure changed: review the integration')
     menu = copy.deepcopy(menu)
-    for child in list(menu):
-        if child.tag == 'include' and child.text in ('Home_Group_Definition', 'Home_Reposition'):
-            menu.remove(child)
-    for key, value in reversed((('left', '80'), ('right', '80'), ('top', '60'), ('height', '80'))):
-        child = ET.Element(key)
-        child.text = value
-        menu.insert(0, child)
+    # Keep the author's shared positioning, including the search/header offsets.
+    # Fixed coordinates here made Live TV jump relative to the native hubs.
     files['1080i/Home.xml'] = template.replace(
         '<!-- NATIVE_MENU -->', ET.tostring(menu, encoding='unicode')).encode('utf-8')
     files['HOMETV-NOTICE.md'] = (root / '.hometv/NOTICE.md').read_bytes()
