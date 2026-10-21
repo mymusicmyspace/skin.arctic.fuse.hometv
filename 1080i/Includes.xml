@@ -19,6 +19,10 @@
     <include file="Includes_SkinSettings.xml" />
     <include file="Includes_Hubs.xml" />
     <include file="Includes_Background.xml" />
+    <include file="Includes_StartUp.xml" />
+    <include file="Includes_StartUp_Weather.xml" />
+    <include file="Includes_StartUp_Foliage.xml" />
+    <include file="Includes_StartUp_Test.xml" />
     <include file="Includes_Expressions.xml" />
     <include file="Includes_Colors.xml" />
     <include file="Includes_Defaults.xml" />

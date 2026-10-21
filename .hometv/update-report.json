@@ -1,0 +1,7 @@
+{
+  "status": "candidate",
+  "branch": "updates/arctic-3.4.4",
+  "version": "3.4.4",
+  "upstream_commit": "fe5accdcbae353c99a41860e1a316a654a5d1d47",
+  "device_verification": "pending"
+}
