@@ -1,0 +1,10 @@
+{
+  "status": "conflict",
+  "branch": "updates/arctic-3.4.6",
+  "version": "3.4.6",
+  "upstream_commit": "9d141d89fa7506c0d0f06847cd9802bcfabe86e6",
+  "conflicts": [
+    "1080i/Home.xml"
+  ],
+  "message": "No upstream code merged. Resolve conflicts before building or publishing."
+}
