@@ -1,0 +1,11 @@
+{
+  "status": "conflict",
+  "branch": "updates/arctic-3.4.13",
+  "version": "3.4.13",
+  "upstream_commit": "439a2356396e3103cdd3aa13a78bb2b737f95853",
+  "conflicts": [
+    "1080i/Home.xml",
+    "1080i/Startup.xml"
+  ],
+  "message": "No upstream code merged. Resolve conflicts before building or publishing."
+}
