@@ -1,0 +1,12 @@
+{
+  "status": "conflict",
+  "branch": "updates/arctic-3.5.2",
+  "version": "3.5.2",
+  "upstream_commit": "138d3e388494ade8c60a8187d96d88e77d288380",
+  "conflicts": [
+    "1080i/Custom_1182_Dialog_Topmenu_Overlay.xml",
+    "1080i/Home.xml",
+    "1080i/Startup.xml"
+  ],
+  "message": "No upstream code merged. Resolve conflicts before building or publishing."
+}
